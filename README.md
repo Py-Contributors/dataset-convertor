@@ -9,18 +9,20 @@ python convert.py --input-folder ./data/input \
                   --output-format
 ```
 
+## Dataset types
+
 ## Current support format
 
 Currently, the following formats are supported:
 
-- pascal_voc - XML files
-- yolo5 - txt files
-- coco - json files
-
-## Upcoming support format
-
-the following formats are planned to be supported in the future:
-
+|    from    |           to           | implemented |
+| :--------: | :--------------------: | ----------- |
+| PASCAL VOC |    YOLO(TXT files)     | Yes         |
+| PASCAL VOC |   COCO (JSON files)    | No          |
+|    COCO    | PASCAL VOC (XML files) | No          |
+|    COCO    |    YOLO (TXT files)    | No          |
+|    YOLO    |   COCO (JSON files)    | No          |
+|    YOLO    | PASCAL VOC (XML files) | Yes         |
 
 ## Installation
 
@@ -34,6 +36,14 @@ pip install requirements.txt
 
 convert annotations from one format to another format.
 
+dataset formatting exmaple
+
+    - data/pascal_voc/JPEGImages/*.jpg
+    - data/pascal_voc/Annotations/*.xml
+
+    - data/yolo5/JPEGImages/*.jpg
+    - data/yolo5/labels/*.txt
+
 ```bash
 # example command for pascal-voc(xml) to yolo(txt)
 python convert.py --input-folder ./data/pascal_voc \
@@ -41,6 +51,13 @@ python convert.py --input-folder ./data/pascal_voc \
                   --input-format  voc \
                   --output-format yolo
 ```
+
+## Reference
+
+- PASCAL VOC - http://host.robots.ox.ac.uk/pascal/VOC/
+- COCO - http://cocodataset.org/
+- YOLO9000 - https://arxiv.org/abs/1612.08242
+- YOLO4 - https://arxiv.org/abs/2004.10934v1
 
 ## License
 
