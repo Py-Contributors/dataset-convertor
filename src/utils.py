@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 class Convertor:
-    """ 
+    ''' 
     Convertor class is a class for converting images and annotations from one format to another.
 
     Parameters
@@ -36,7 +36,7 @@ class Convertor:
     # COCO - JSON
     # COCO format is a JSON file format for images and annotations.
     
-    """
+    '''
     def __init__(self, input_folder, outout_folder, input_format, output_format):
         self.input_folder = input_folder
         self.input_image_folder = os.path.join(self.input_folder, 'JPEGImages')
@@ -48,7 +48,7 @@ class Convertor:
         self.output_format = output_format
     
     def voc2yolo(self):
-        """ Pascal Voc format to yolo txt format conversion """
+        ''' Pascal Voc format to yolo txt format conversion '''
         if self.input_format == 'voc' and self.output_format == 'yolo':
             for xml_file in glob(os.path.join(self.input_annotation_folder, '*.xml')):
                 tree = ET.parse(xml_file)
@@ -88,8 +88,7 @@ class Convertor:
             print('Not support')
 
     def yolo2voc(self):
-        """ yolo txt format to pascal voc xml format """
-        # TODO: write yolo2Voc conversion script    
+        ''' yolo txt format to pascal voc xml format '''
         if self.input_format == 'yolo' and self.output_format == 'voc':
             
             # create output Annotations folder if not exists
@@ -123,7 +122,7 @@ class Convertor:
                         ymax = int(float(y) * img_height + float(h) * img_height)
 
                         # create xml file
-                        # FIXME: need to fix the xml file format
+                        # REVIEW: need to REVIEW the xml file formation
                         root = ET.Element('annotation')
                         ET.SubElement(root, 'folder').text = 'VOC'
                         ET.SubElement(root, 'filename').text = image_file_name
@@ -150,3 +149,19 @@ class Convertor:
                         tree.write(os.path.join(self.output_annotation_folder, image_file_name[:-4] + '.xml'))
         else:
             print('Not support')
+
+    def yolo2coco(self):
+        ''' yolo txt format to coco json format '''
+        pass
+    
+    def coco2yolo(self):
+        ''' coco json format to yolo txt format '''
+        pass
+
+    def voc2coco(self):
+        ''' voc xml format to coco json format '''
+        pass
+
+    def coco2voc(self):
+        ''' coco json format to voc xml format '''
+        pass
