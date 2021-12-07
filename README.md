@@ -60,6 +60,10 @@ python convert.py --input-folder ./data/pascal_voc \
                   --output-format yolo
 ```
 
+## Contributing
+
+open an issue or create a pull request. open-source contribution is welcome.check the [contributing guide](/CONTRIBUTING.md) for details.
+
 ## Reference
 
 - PASCAL VOC - http://host.robots.ox.ac.uk/pascal/VOC/
