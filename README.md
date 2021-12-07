@@ -27,7 +27,15 @@ Currently, the following formats are supported:
 ## Installation
 
 ```bash
+git clone https://github.com/codePerfectPlus/dataset-convertor/
+```
+
+```bash
+cd dataset-convertor
 python -m venv venv
+```
+
+```bash
 source venv/bin/activate
 pip install requirements.txt
 ```
@@ -36,7 +44,7 @@ pip install requirements.txt
 
 convert annotations from one format to another format.
 
-dataset formatting exmaple
+dataset formatting example:
 
     - data/pascal_voc/JPEGImages/*.jpg
     - data/pascal_voc/Annotations/*.xml
