@@ -1,13 +1,7 @@
-# annotations-convertor
-
-script for convert annotations from one format to another format
-
-```bash
-python convert.py --input-folder ./data/input \
-                  --output-folder ./data/output \
-                  --input-format  \
-                  --output-format
-```
+﻿<p align="center">
+  <a href="https://github.com/codePerfectPlus/dataset-convertor"><img src="https://capsule-render.vercel.app/api?type=rect&color=009ACD&height=100&section=header&text=Dataset%20Convertor&fontSize=90%&fontColor=ffffff" alt="website title image"></a>
+  <h2 align="center">👉 Convert object detection dataset format 👈</h2>
+</p>
 
 ## Dataset types
 
@@ -18,11 +12,16 @@ Currently, the following formats are supported:
 |    from    |           to           | implemented |
 | :--------: | :--------------------: | ----------- |
 | PASCAL VOC |    YOLO(TXT files)     | Yes         |
-| PASCAL VOC |   COCO (JSON files)    | No          |
-|    COCO    | PASCAL VOC (XML files) | No          |
-|    COCO    |    YOLO (TXT files)    | No          |
-|    YOLO    |   COCO (JSON files)    | No          |
 |    YOLO    | PASCAL VOC (XML files) | Yes         |
+
+## Upcoming support format
+
+|    from    |           to           | Issue/PR(if any) |
+| :--------: | :--------------------: | ---------------- |
+| PASCAL VOC |   COCO (JSON files)    | No               |
+|    COCO    | PASCAL VOC (XML files) | No               |
+|    COCO    |    YOLO (TXT files)    | No               |
+|    YOLO    |   COCO (JSON files)    | No               |
 
 ## Installation
 
@@ -62,7 +61,7 @@ python convert.py --input-folder ./data/pascal_voc \
 
 ## Contributing
 
-open an issue or create a pull request. open-source contribution is welcome.check the [contributing guide](/CONTRIBUTING.md) for details.
+create an issue/PR if any format is missing.Open-source contribution is welcome.check the [contributing guide](/CONTRIBUTING.md) for details. 
 
 ## Reference
 
