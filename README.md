@@ -5,6 +5,12 @@
 
 ## Dataset types
 
+`PASCAL VOC`: Pascal voc dataset have a xml file for each image.
+
+`YOLO`: YOLO dataset have a txt file for each image.
+
+`COCO`: COCO dataset have a json file for each image.
+
 ## Current support format
 
 Currently, the following formats are supported:
@@ -16,12 +22,15 @@ Currently, the following formats are supported:
 
 ## Upcoming support format
 
-|    from    |           to           | Issue/PR(if any) |
-| :--------: | :--------------------: | ---------------- |
-| PASCAL VOC |   COCO (JSON files)    | No               |
-|    COCO    | PASCAL VOC (XML files) | No               |
-|    COCO    |    YOLO (TXT files)    | No               |
-|    YOLO    |   COCO (JSON files)    | No               |
+|    from    |            to             | Issue/PR(if any) |
+| :--------: | :-----------------------: | ---------------- |
+| PASCAL VOC |     COCO (JSON files)     | No               |
+| PASCAL VOC | TFRecord (TFRecord files) | No               |
+|    COCO    |  PASCAL VOC (XML files)   | No               |
+|    COCO    |     YOLO (TXT files)      | No               |
+|    COCO    | TFRecord (TFRecord files) | No               |
+|    YOLO    |     COCO (JSON files)     | No               |
+|    YOLO    | TFRecord (TFRecord files) | No               |
 
 ## Installation
 
@@ -61,7 +70,7 @@ python convert.py --input-folder ./data/pascal_voc \
 
 ## Contributing
 
-create an issue/PR if any format is missing.Open-source contribution is welcome.check the [contributing guide](/CONTRIBUTING.md) for details. 
+create an issue/PR if any format is missing.Open-source contribution is welcome.check the [contributing guide](/CONTRIBUTING.md) for details.
 
 ## Reference
 

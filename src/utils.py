@@ -1,15 +1,30 @@
 import os
-from PIL import Image
-from glob import glob
-from xml.etree import ElementTree as ET
 import shutil
+from glob import glob
+from PIL import Image
+from pathlib import Path
 from datetime import datetime
-from path import Path
+from xml.etree import ElementTree as ET
+
 
 class Convertor:
     '''
     Convertor class is a class for converting images and annotations
     from one format to another.
+        
+    Usage:
+        # voc to yolo
+        convertor = Convertor('data/VOC2007', 'outout/VOC2007_yolo', 'voc', 'yolo')
+        convertor.voc2yolo()
+
+        # voc to coco
+        convertor = Convertor('data/VOC2007', 'outout/VOC2007_coco', 'voc', 'coco')
+        convertor.voc2coco()
+
+        # yolo to voc
+        convertor = Convertor('data/yolo', 'outout/VOC2007', 'yolo', 'voc')
+        convertor.yolo2voc()
+
 
     Parameters
     ----------
@@ -30,12 +45,39 @@ class Convertor:
     yolo2voc()
         Convert Yolo5 format to Pascal VOC format.
 
+    yolo2coco()
+        Convert Yolo5 format to COCO format.
+    
+    coco2yolo()
+        Convert COCO format to Yolo5 format.
+
+    voc2coco()
+        Convert Pascal VOC format to COCO format.
+    
+    coco2voc()
+        Convert COCO format to Pascal VOC format.
+
+    pascal2tfrecord()
+        Convert Pascal VOC format to TFRecord format.
+    
+    coco2tfrecord()
+        Convert COCO format to TFRecord format.
+
+    yolo2tfrecord()
+        Convert Yolo5 format to TFRecord format.
+
+
     # Pascal Voc - XML
     # Pascal VOC format is a XML file format for images and annotations.
+
     # Yolo5 - TXT
     # Yolo5 format is a text file format for images and annotations.
+
     # COCO - JSON
     # COCO format is a JSON file format for images and annotations.
+
+    # TFRecord - TFRecord
+    # TFRecord format is a TFRecord file format for images and annotations.
 
     '''
     def __init__(self, input_folder, outout_folder, input_format, output_format):
@@ -88,7 +130,7 @@ class Convertor:
                         f.write(label + ' ' + str(x) + ' ' + str(y) + ' ' + str(w) + ' ' + str(h) + '\n')
 
         else:
-            print('Not support')
+            print('Conversion not supported yet, please check https://github.com/codePerfectPlus/dataset-convertor and create an issue.')
 
     def yolo2voc(self):
         ''' yolo txt format to pascal voc xml format '''
@@ -151,7 +193,7 @@ class Convertor:
                         tree = ET.ElementTree(root)
                         tree.write(os.path.join(self.output_annotation_folder, image_file_name[:-4] + '.xml'))
         else:
-            print('Not support')
+            print('Conversion not supported yet, please check https://github.com/codePerfectPlus/dataset-convertor and create an issue.')
 
     def yolo2coco(self):
         ''' yolo txt format to coco json format '''
@@ -168,3 +210,16 @@ class Convertor:
     def coco2voc(self):
         ''' coco json format to voc xml format '''
         pass
+
+    def coco2tfrecord(self):
+        ''' coco json format to tfrecord format '''
+        pass
+
+    def yolo2tfrecord(self):
+        ''' yolo txt format to tfrecord format '''
+        pass
+
+    def voc2tfrecord(self):
+        ''' voc xml format to tfrecord format '''
+        pass
+    
