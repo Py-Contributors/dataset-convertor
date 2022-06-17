@@ -34,6 +34,8 @@ Currently, the following formats are supported:
 
 ## Installation
 
+### Installation from source code
+
 ```bash
 git clone https://github.com/codePerfectPlus/dataset-convertor/
 ```
@@ -48,6 +50,12 @@ source venv/bin/activate
 pip install requirements.txt
 ```
 
+### Installation from PyPI
+
+```bash
+pip install dataset-convertor
+```
+
 ## Usage
 
 convert annotations from one format to another format.
@@ -60,13 +68,23 @@ dataset formatting example:
     - data/yolo5/JPEGImages/*.jpg
     - data/yolo5/labels/*.txt
 
+### Pascal VOC(xml) to yolo(txt)
+
 ```bash
-# example command for pascal-voc(xml) to yolo(txt)
-python convert.py --input-folder ./data/pascal_voc \
-                  --output-folder ./output/yolo5 \
-                  --input-format  voc \
-                  --output-format yolo
+from convert import Convertor
+
+con = Convertor(input_folder='/home/user/data/pascal_voc', output_folder='/home/user/data/yolo5')
+con.voc2yolo()
 ```
+
+### from yolo(txt) to Pascal VOC(xml)
+
+```bash
+from convert import Convertor
+con = Convertor(input_folder='/home/user/data/yolo5', output_folder='/home/user/data/pascal_voc')
+con.yolo2voc()
+```
+
 
 ## Contributing
 
