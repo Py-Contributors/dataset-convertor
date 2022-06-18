@@ -2,7 +2,7 @@ import os
 import shutil
 from glob import glob
 from PIL import Image
-from pathlib import Path
+from os.path import join as join_path
 from datetime import datetime
 from xml.etree import ElementTree as ET
 import logging
@@ -87,25 +87,20 @@ class Convertor:
     # TFRecord format is a TFRecord file format for images and annotations.
 
     '''
-    def __init__(self, input_folder, outout_folder):
-        self.input_image_folder = os.path.join(self.input_folder, 'JPEGImages')
-        self.input_annotation_folder = os.path.join(self.input_folder, 'Annotations')
-        self.output_image_folder = os.path.join(self.output_folder, 'JPEGImages')
-        self.output_annotation_folder = os.path.join(self.output_folder, 'Annotations')
+    def __init__(self, input_folder, output_folder):
+        self.input_image_folder = join_path(input_folder, 'JPEGImages')
+        self.input_annotation_folder = join_path(input_folder, 'Annotations')
+        self.output_image_folder = join_path(output_folder, 'JPEGImages')
+        self.output_annotation_folder = join_path(output_folder, 'Annotations')
 
 
     def voc2yolo(self):
         ''' Pascal Voc format to yolo txt format conversion '''
 
-        if not os.path.exists(self.output_annotation_folder):
-            os.makedirs(self.output_annotation_folder)
-        
-        for xml_file in glob(os.path.join(self.input_annotation_folder, '*.xml')):
+        os.makedirs(self.output_annotation_folder, exist_ok=True)
+        shutil.copytree(self.input_image_folder, self.output_image_folder)
 
-            if not os.path.exists(self.output_image_folder):
-                os.makedirs(self.output_image_folder)
-
-            shutil.copy(os.path.join(self.input_image_folder, file_name), os.path.join(self.output_image_folder, file_name))
+        for xml_file in glob(join_path(self.input_annotation_folder, '*.xml')):
 
             tree = ET.parse(xml_file)
             root = tree.getroot()
@@ -127,28 +122,26 @@ class Convertor:
                 w = (xmax - xmin) / width
                 h = (ymax - ymin) / height
 
-                # FIXME: conver label to id
-                with open(os.path.join(self.output_annotation_folder, file_name[:-4] + '.txt'), 'a') as f:
-                    f.write(label + ' ' + str(x) + ' ' + str(y) + ' ' + str(w) + ' ' + str(h) + '\n')
+                output_txt_file = (self.output_annotation_folder, 
+                                               file_name.split('.')[0] + '.txt')
+
+                with open(output_txt_file, 'a') as f:
+                    f.write('{} {} {} {} {}\n'.format(label, str(x), str(y), str(w), str(h)))
 
 
     def yolo2voc(self):
         ''' yolo txt format to pascal voc xml format '''
 
         # create output Annotations folder if not exists
-        if not os.path.exists(self.output_annotation_folder):
-                os.makedirs(self.output_annotation_folder)
+        os.makedirs(self.output_annotation_folder, exist_ok=True)
 
-        for txt_file in glob(os.path.join(self.input_annotation_folder, '*.txt')):
+        shutil.copytree(self.input_image_folder, self.output_image_folder)
+
+        for txt_file in glob(join_path(self.input_annotation_folder, '*.txt')):
             image_file_name = os.path.basename(txt_file)[:-4] + '.jpg'
-
-            # create output image file directory if not exists
-            if not os.path.exists(self.output_image_folder):
-                os.makedirs(self.output_image_folder)
-
             # copy image file to output image file directory
-            shutil.copy(os.path.join(self.input_image_folder, image_file_name),
-                        os.path.join(self.output_image_folder, image_file_name))
+            shutil.copy(join_path(self.input_image_folder, image_file_name),
+                        join_path(self.output_image_folder, image_file_name))
 
             # read txt file
             with open(txt_file, 'r') as f:
@@ -156,7 +149,7 @@ class Convertor:
                 for line in lines:
                     line = line.strip()
                     label, x, y, w, h = line.split(' ')
-                    img = Image.open(os.path.join(self.input_image_folder, image_file_name))
+                    img = Image.open(join_path(self.input_image_folder, image_file_name))
 
                     img_width, img_height = img.size
 
@@ -190,7 +183,9 @@ class Convertor:
 
                     # write xml file
                     tree = ET.ElementTree(root)
-                    tree.write(os.path.join(self.output_annotation_folder, image_file_name[:-4] + '.xml'))
+                    output_xml_file = join_path(self.output_annotation_folder, 
+                                                   image_file_name.split('.')[0] + '.xml')
+                    tree.write(output_xml_file)
 
 
     def yolo2coco(self):
